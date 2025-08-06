@@ -25,7 +25,8 @@ filter {
  	    if port.between?(1,65535)
              domain = domain_split[0] 
              event.set("[destination][domain_noport]", domain)
-	    end
+	       end
+     end
 	end
   domain_split = domain.split(".")
   domain_total_levels = domain_split.length
@@ -38,8 +39,6 @@ filter {
   # Level 1+2 Name
     domain_1n2_name = domain_lev2_name + "." + domain_lev1_name
     domain_nest.merge! :"1n2_name" => domain_1n2_name
-    
-    reg
   '
   add_field => { 
     "[@metadata][etl][pipeline]" => "filter-ruby-B886EEA032FD-2024031801"
