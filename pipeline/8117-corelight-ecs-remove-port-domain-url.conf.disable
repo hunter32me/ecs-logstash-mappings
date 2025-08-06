@@ -27,11 +27,27 @@ filter {
              event.set("[destination][domain_noport]", domain)
 	    end
 	end
-      end
+  domain_split = domain.split(".")
+  domain_total_levels = domain_split.length
+  domain_lev1_name = domain_split[-1]
+  domain_lev2_name = domain_split[-2]
+
+  domain_lev2_ends_with_integer = /[0-9]$/ === domain_lev2_name
+  domain_nest.merge! :"level_2" => { :"ends_with_integer" => domain_lev2_ends_with_integer, :"name" => domain_lev2_name, :"length" => domain_lev2_name.length }
     
+  # Level 1+2 Name
+    domain_1n2_name = domain_lev2_name + "." + domain_lev1_name
+    domain_nest.merge! :"1n2_name" => domain_1n2_name
+    
+    reg
   '
   add_field => { 
     "[@metadata][etl][pipeline]" => "filter-ruby-B886EEA032FD-2024031801"
+  }
+  mutate {
+    rename => {
+      "[temporary_domain_nest][1n2_name]" => "[destination][registered_domain]"
+    }
   }
   tag_on_exception => "_rubyexception-B886EEA032FD-2024031801"
   tag_with_exception_message => true
