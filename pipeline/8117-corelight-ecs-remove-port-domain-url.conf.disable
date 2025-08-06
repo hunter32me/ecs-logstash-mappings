@@ -43,14 +43,15 @@ filter {
   add_field => { 
     "[@metadata][etl][pipeline]" => "filter-ruby-B886EEA032FD-2024031801"
   }
+  
+  tag_on_exception => "_rubyexception-B886EEA032FD-2024031801"
+  tag_with_exception_message => true
+  id => "filter-mutate-B886EEA032FD"
+  }
   mutate {
     rename => {
       "[temporary_domain_nest][1n2_name]" => "[destination][registered_domain]"
     }
-  }
-  tag_on_exception => "_rubyexception-B886EEA032FD-2024031801"
-  tag_with_exception_message => true
-  id => "filter-mutate-B886EEA032FD"
   }
 }
 if [url][domain] {
