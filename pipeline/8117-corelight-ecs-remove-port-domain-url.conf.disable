@@ -32,7 +32,7 @@ filter {
   domain_total_levels = domain_split.length
   domain_lev1_name = domain_split[-1]
   domain_lev2_name = domain_split[-2]
-
+  domain_nest = { :"level_1" => { :"name" => domain_lev1_name, :"length" => domain_lev1_name.length } }
   domain_lev2_ends_with_integer = /[0-9]$/ === domain_lev2_name
   domain_nest.merge! :"level_2" => { :"ends_with_integer" => domain_lev2_ends_with_integer, :"name" => domain_lev2_name, :"length" => domain_lev2_name.length }
     
