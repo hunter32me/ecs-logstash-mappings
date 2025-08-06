@@ -39,7 +39,8 @@ filter {
   # Level 1+2 Name
     domain_1n2_name = domain_lev2_name + "." + domain_lev1_name
     domain_nest.merge! :"1n2_name" => domain_1n2_name
-  '
+    event.set("[temporary_domain_nest]", domain_nest)
+    '
   add_field => { 
     "[@metadata][etl][pipeline]" => "filter-ruby-B886EEA032FD-2024031801"
   }
