@@ -44,6 +44,7 @@ filter {
       domain_nest.merge! :"1n2_name" => domain_1n2_name
       event.set("[temporary_domain_nest]", domain_nest)
     end  
+
   end
     '
   add_field => { 
